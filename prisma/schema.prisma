@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int            @id @default(autoincrement())
+  name          String         @unique
+  category      String         @default("Divers")
+  unit          String         @default("unité")
+  fridgeItem    FridgeItem?
+  shoppingItems ShoppingItem[]
+}
+
+model FridgeItem {
+  id          Int       @id @default(autoincrement())
+  productId   Int       @unique
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity    Float     @default(1)
+  minQuantity Float     @default(0)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model ShoppingItem {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Float    @default(1)
+  checked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
