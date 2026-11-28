@@ -17,3 +17,9 @@ src/
   lib/                    Client API, constantes, instance Prisma
   types/                  Types partagés
 ```
+
+## Lien avec d'autres applications (Triviae)
+
+Frigus fournit le contenu du frigo : `GET /api/frigo` -> `{ "items": [{ name, category, quantity, unit, expiresAt }] }`
+(seuls les produits dont la quantité est supérieure à 0).
+Le lien se crée dans **Triviae > Liens > Lier des applications** : « Recipere reçoit le contenu du frigo de Frigus ».
